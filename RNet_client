@@ -1,0 +1,14 @@
+local pList = peripheral.getNames()
+
+print("Establishing RedNet connection...")
+
+for i,p in pairs(pList) do
+  local pType = peripheral.getType(p)
+  if pType == "modem" then
+    rednet.open(p)
+  end
+end
+
+if rednet.isOpen() == false then
+  print("NO VALID MODEM FOUND... COULD NOT ESTABLISH CONNECTION")
+end
