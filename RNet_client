@@ -1,14 +1,22 @@
 local pList = peripheral.getNames()
 
-print("Establishing RedNet connection...")
+term.clear()
+term.setCursorPos(1,1)
+
+print("Searching for modem to establish connection...")
 
 for i,p in pairs(pList) do
   local pType = peripheral.getType(p)
   if pType == "modem" then
     rednet.open(p)
+    print("Connection established...")
   end
 end
 
 if rednet.isOpen() == false then
-  print("NO VALID MODEM FOUND... COULD NOT ESTABLISH CONNECTION")
+  error("No valid modem found... couldn't establish connection")
+end
+
+function rqSite(site, request)
+  rednet.send(hId, request)
 end
